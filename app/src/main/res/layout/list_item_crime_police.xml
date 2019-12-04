@@ -10,26 +10,31 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/crime_title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Crime Title">
-    </TextView>
+        <TextView
+            android:id="@+id/crime_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Crime Title">
+        </TextView>
 
-    <TextView
-        android:id="@+id/crime_date"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Crime Date">
+        <TextView
+            android:id="@+id/crime_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Crime Date">
 
-    </TextView>
+        </TextView>
     </LinearLayout>
 
-    <Button
+    <View
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:gravity="end"
+        android:layout_weight="1"/>
+
+    <Button
+        android:id="@+id/requires_police"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:text="Вызвать полицию!">
     </Button>
 </LinearLayout>
