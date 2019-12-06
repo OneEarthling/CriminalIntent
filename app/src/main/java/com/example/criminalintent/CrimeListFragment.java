@@ -21,13 +21,13 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
-import static java.text.DateFormat.DAY_OF_WEEK_FIELD;
 
 public class CrimeListFragment extends Fragment {
     private RecyclerView mCrimeRecyclerView;
     private CrimeAdapter mAdapter;
     public static final int NORMAL_TYPE = 0;
-    public static final int POLICE_TYPE = 0;
+    public static final int POLICE_TYPE = 1;
+    private static final int REQUEST_CRIME_POSITION = 2;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
         View view = inflater.inflate(R.layout.fragment_crime_list, container, false);
@@ -66,8 +66,8 @@ public class CrimeListFragment extends Fragment {
         public void bind(Crime crime){
             mCrime = crime;
             mTitleTextView.setText(mCrime.getTitle());
+            //mDateTextView.setText(new SimpleDateFormat("EEEE, dd.MM.yyyy HH:mm").format(mCrime.getDate()));
             SimpleDateFormat sdf = new SimpleDateFormat("EEEE");
-            //DateFormat sdf = DateFormat.getDateInstance(DAY_OF_WEEK_FIELD);
             String dayOfTheWeek = sdf.format(mCrime.getDate());
             mDateTextView.setText(dayOfTheWeek + ", " +DateFormat.getDateInstance().format(mCrime.getDate()));
             mSolvedImageView.setVisibility(crime.isSolved()?View.VISIBLE : View.GONE);
@@ -77,9 +77,12 @@ public class CrimeListFragment extends Fragment {
         public void onClick(View v) {
             //Toast.makeText(getActivity(), mCrime.getTitle() + " clicked!", Toast.LENGTH_SHORT).show();
             //Intent intent = new Intent(getActivity(), CrimeActivity.class);
-            Intent intent = CrimeActivity.newIntent(getActivity(), mCrime.getId());
-            startActivity(intent);
+            //Intent intent = CrimeActivity.newIntent(getActivity(), mCrime.getId());
+            int position = getAdapterPosition();
+            Intent intent = CrimeActivity.newIntent(getActivity(), mCrime.getId(), getAdapterPosition());
+            startActivityForResult(intent, position);
         }
+
     }
 
     private class CrimeAdapter extends RecyclerView.Adapter<CrimeHolder>{
@@ -94,10 +97,10 @@ public class CrimeListFragment extends Fragment {
             LayoutInflater layoutInflater = LayoutInflater.from(getActivity());
             View view = null;
             switch(viewType){
-                case 0:
+                case NORMAL_TYPE:
                     view = layoutInflater.inflate(R.layout.list_item_crime, parent, false);
                     break;
-                case 1:
+                case POLICE_TYPE:
                     view = layoutInflater.inflate(R.layout.list_item_crime_police, parent, false);
                     break;
             }
@@ -132,14 +135,24 @@ public class CrimeListFragment extends Fragment {
     private void updateUI(){
         CrimeLab crimeLab = CrimeLab.get(getActivity());
         List<Crime> crimes = crimeLab.getCrimes();
-        mAdapter = new CrimeAdapter(crimes);
-        mCrimeRecyclerView.setAdapter(mAdapter);
+        /*mAdapter = new CrimeAdapter(crimes);
+        mCrimeRecyclerView.setAdapter(mAdapter);*/
 
         if (mAdapter == null){
             mAdapter = new CrimeAdapter(crimes);
             mCrimeRecyclerView.setAdapter(mAdapter);
         }else{
-            mAdapter.notifyDataSetChanged();
+            //mAdapter.notifyDataSetChanged();
+            //mAdapter.notifyItemChanged(position);
+
         }
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        //super.onActivityResult(requestCode, resultCode, data);
+        //if (requestCode == resultCode){
+            mAdapter.notifyItemChanged(requestCode);
+        //}
     }
 }

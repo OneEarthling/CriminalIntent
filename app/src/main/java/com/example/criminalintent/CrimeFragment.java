@@ -1,6 +1,7 @@
 package com.example.criminalintent;
 
 
+import android.app.Activity;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -20,15 +21,17 @@ import static android.widget.CompoundButton.*;
 
 public class CrimeFragment extends Fragment {
     private static final String ARG_CRIME_ID = "crime_id";
+    private static final String ARG_CRIME_POSITION = "crime_position";
 
     private Crime mCrime;
     private EditText mTitleField;
     private Button mDateButton;
     private CheckBox mSolvedCheckBox;
 
-    public static CrimeFragment newInstance(UUID crimeId){
+    public static CrimeFragment newInstance(UUID crimeId, int position){
         Bundle args = new Bundle();
         args.putSerializable(ARG_CRIME_ID, crimeId);
+        args.putInt(ARG_CRIME_POSITION, position);
         CrimeFragment fragment = new CrimeFragment();
         fragment.setArguments(args);
         return fragment;
@@ -37,8 +40,10 @@ public class CrimeFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         //UUID crimeID = (UUID)getActivity().getIntent().getSerializableExtra(CrimeActivity.EXTRA_CRIME_ID);
-        UUID crimeID = (UUID) getArguments().getSerializable(ARG_CRIME_ID);
-        mCrime = CrimeLab.get(getActivity()).getCrime(crimeID);
+        //UUID crimeID = (UUID) getArguments().getSerializable(ARG_CRIME_ID);
+        //mCrime = CrimeLab.get(getActivity()).getCrime(crimeID);
+        int crimePosition =  getArguments().getInt(ARG_CRIME_POSITION);
+        mCrime = CrimeLab.get(getActivity()).getCrime(crimePosition);
     }
 
     @Override
@@ -78,4 +83,11 @@ public class CrimeFragment extends Fragment {
         });
         return v;
     }
+
+    /*public void returnResult() {
+        //getActivity().setResult(Activity.RESULT_OK);
+        int crimePosition =  getArguments().getInt(ARG_CRIME_POSITION);
+
+        getActivity().setResult(Activity.RESULT_OK, crimePosition);
+    }*/
 }
