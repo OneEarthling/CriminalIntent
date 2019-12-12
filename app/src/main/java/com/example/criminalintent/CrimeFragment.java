@@ -51,6 +51,8 @@ public class CrimeFragment extends Fragment {
         //mCrime = CrimeLab.get(getActivity()).getCrime(crimeID);
         int crimePosition =  getArguments().getInt(ARG_CRIME_POSITION);
         mCrime = CrimeLab.get(getActivity()).getCrime(crimePosition);
+
+
     }
 
     @Override
@@ -94,7 +96,7 @@ public class CrimeFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 FragmentManager manager = getFragmentManager();
-                TimePickerFragment
+                //TimePickerFragment
             }
         });
         mSolvedCheckBox = v.findViewById(R.id.crime_solved);
@@ -105,6 +107,7 @@ public class CrimeFragment extends Fragment {
                 mCrime.setSolved(isChecked);
             }
         });
+
         return v;
     }
 
