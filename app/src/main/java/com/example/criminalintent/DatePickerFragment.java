@@ -12,6 +12,7 @@ import android.widget.DatePicker;
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.DialogFragment;
 
+import java.sql.Time;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
@@ -53,6 +54,7 @@ public class DatePickerFragment extends DialogFragment {
                         int year = mDatePicker.getYear();
                         int month = mDatePicker.getMonth();
                         int day = mDatePicker.getDayOfMonth();
+
                         Date date = new GregorianCalendar(year, month,day).getTime();
                         sendResult(Activity.RESULT_OK, date);
                     }

@@ -17,6 +17,9 @@ import android.widget.EditText;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
+import java.sql.Time;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.UUID;
 
@@ -91,12 +94,14 @@ public class CrimeFragment extends Fragment {
         });
 
         mTimeButton = v.findViewById(R.id.crime_time);
-        mTimeButton.setText(mCrime.getDate().toString()); //  вытащить время!!!
+        updateTime();
         mTimeButton.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
                 FragmentManager manager = getFragmentManager();
-                //TimePickerFragment
+                TimePickerFragment dialog = TimePickerFragment.newInstance(mCrime.getDate());
+                dialog.setTargetFragment(CrimeFragment.this, REQUEST_TIME);
+                dialog.show(manager, DIALOG_TIME);
             }
         });
         mSolvedCheckBox = v.findViewById(R.id.crime_solved);
@@ -128,9 +133,23 @@ public class CrimeFragment extends Fragment {
             mCrime.setDate(date);
             updateDate();
         }
+
+        if (requestCode == REQUEST_TIME){
+            Date time = (Date) data.getSerializableExtra(TimePickerFragment.EXTRA_TIME);
+            mCrime.setDate(time);
+            updateTime();
+        }
     }
 
     private void updateDate() {
-        mDateButton.setText(mCrime.getDate().toString());
+        DateFormat dateFormat = new SimpleDateFormat("EEE MMM dd yyyy");
+        mDateButton.setText(dateFormat.format(mCrime.getDate()));
+        //mDateButton.setText(mCrime.getDate().toString());
+    }
+
+    private void updateTime(){
+        DateFormat timeFormat = new SimpleDateFormat("hh:mm a z");
+        mTimeButton.setText(timeFormat.format(mCrime.getDate().getTime()));
+        //mTimeButton.setText(mCrime.getDate().toString());
     }
 }
