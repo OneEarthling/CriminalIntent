@@ -16,6 +16,7 @@ import android.widget.EditText;
 
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import java.sql.Time;
 import java.text.DateFormat;
@@ -32,6 +33,7 @@ public class CrimeFragment extends Fragment {
     private static final String DIALOG_TIME = "DialogTime";
     private static final int REQUEST_DATE = 0;
     private static final int REQUEST_TIME = 1;
+    private static final int REQUEST_DATE_2 = 2;
     private Crime mCrime;
     private EditText mTitleField;
     private Button mDateButton;
@@ -86,10 +88,19 @@ public class CrimeFragment extends Fragment {
         mDateButton.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                FragmentManager manager = getFragmentManager();
+                /*FragmentManager manager = getFragmentManager();
                 DatePickerFragment dialog = DatePickerFragment.newInstance(mCrime.getDate());
                 dialog.setTargetFragment(CrimeFragment.this, REQUEST_DATE);
-                dialog.show(manager, DIALOG_DATE);
+                dialog.show(manager, DIALOG_DATE);*/
+
+                Intent intent = DatePickerActivity.newIntent(getActivity(), mCrime.getDate());
+                startActivityForResult(intent, REQUEST_DATE_2);
+
+               /* !!!
+                FragmentTransaction ft = getFragmentManager().beginTransaction();
+                DatePickerFragment dialog = DatePickerFragment.newInstance(mCrime.getDate());
+                ft.add(R.id.fragment_container, dialog); ??
+                ft.commit();*/
             }
         });
 
@@ -129,6 +140,12 @@ public class CrimeFragment extends Fragment {
             return;
         }
         if (requestCode == REQUEST_DATE){
+            Date date = (Date) data.getSerializableExtra(DatePickerFragment.EXTRA_DATE);
+            mCrime.setDate(date);
+            updateDate();
+        }
+
+        if (requestCode == REQUEST_DATE_2){
             Date date = (Date) data.getSerializableExtra(DatePickerFragment.EXTRA_DATE);
             mCrime.setDate(date);
             updateDate();
