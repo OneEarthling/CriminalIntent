@@ -33,12 +33,12 @@ public class CrimeFragment extends Fragment {
     private static final String DIALOG_TIME = "DialogTime";
     private static final int REQUEST_DATE = 0;
     private static final int REQUEST_TIME = 1;
-    private static final int REQUEST_DATE_2 = 2;
     private Crime mCrime;
     private EditText mTitleField;
     private Button mDateButton;
     private Button mTimeButton;
     private CheckBox mSolvedCheckBox;
+    private boolean mIsTabletLayout;
 
     public static CrimeFragment newInstance(UUID crimeId, int position){
         Bundle args = new Bundle();
@@ -57,7 +57,7 @@ public class CrimeFragment extends Fragment {
         int crimePosition =  getArguments().getInt(ARG_CRIME_POSITION);
         mCrime = CrimeLab.get(getActivity()).getCrime(crimePosition);
 
-
+        mIsTabletLayout = false;
     }
 
     @Override
@@ -88,14 +88,15 @@ public class CrimeFragment extends Fragment {
         mDateButton.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                /*FragmentManager manager = getFragmentManager();
-                DatePickerFragment dialog = DatePickerFragment.newInstance(mCrime.getDate());
-                dialog.setTargetFragment(CrimeFragment.this, REQUEST_DATE);
-                dialog.show(manager, DIALOG_DATE);*/
-
-                Intent intent = DatePickerActivity.newIntent(getActivity(), mCrime.getDate());
-                startActivityForResult(intent, REQUEST_DATE_2);
-
+                if (mIsTabletLayout) {
+                    FragmentManager manager = getFragmentManager();
+                    DatePickerFragment dialog = DatePickerFragment.newInstance(mCrime.getDate());
+                    dialog.setTargetFragment(CrimeFragment.this, REQUEST_DATE);
+                    dialog.show(manager, DIALOG_DATE);
+                }else {
+                    Intent intent = DatePickerActivity.newIntent(getActivity(), mCrime.getDate());
+                    startActivityForResult(intent, REQUEST_DATE);
+                }
                /* !!!
                 FragmentTransaction ft = getFragmentManager().beginTransaction();
                 DatePickerFragment dialog = DatePickerFragment.newInstance(mCrime.getDate());
@@ -140,12 +141,6 @@ public class CrimeFragment extends Fragment {
             return;
         }
         if (requestCode == REQUEST_DATE){
-            Date date = (Date) data.getSerializableExtra(DatePickerFragment.EXTRA_DATE);
-            mCrime.setDate(date);
-            updateDate();
-        }
-
-        if (requestCode == REQUEST_DATE_2){
             Date date = (Date) data.getSerializableExtra(DatePickerFragment.EXTRA_DATE);
             mCrime.setDate(date);
             updateDate();
