@@ -57,7 +57,7 @@ public class CrimeFragment extends Fragment {
         int crimePosition =  getArguments().getInt(ARG_CRIME_POSITION);
         mCrime = CrimeLab.get(getActivity()).getCrime(crimePosition);
 
-        mIsTabletLayout = false;
+        mIsTabletLayout = getResources().getBoolean(R.bool.large_layout);
     }
 
     @Override
