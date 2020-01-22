@@ -24,6 +24,12 @@ public class CrimePagerActivity extends AppCompatActivity {
     private Button mToFirstPageButton;
     private Button mToLastPageButton;
 
+    public static Intent newIntent(Context packageContext, UUID crimeId){
+        Intent intent = new Intent(packageContext, CrimePagerActivity.class);
+        intent.putExtra(EXTRA_CRIME_ID, crimeId);
+        return intent;
+    }
+
     public static Intent newIntent(Context packageContext, UUID crimeId, int position){
         Intent intent = new Intent(packageContext, CrimePagerActivity.class);
         intent.putExtra(EXTRA_CRIME_ID, crimeId);

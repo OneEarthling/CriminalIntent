@@ -8,4 +8,13 @@
     <string name="time_picker_title">Время преступления:</string>
     <string name="to_first_page"><![CDATA[<<]]></string>
     <string name="to_last_page"><![CDATA[>>]]></string>
+    <string name="no_crimes">Список преступлений пуст</string>
+    <string name="new_crime">Новое преступление</string>
+    <string name="delete_crime">Удалить преступление</string>
+    <string name="show_subtitle">Показать подзаголовок</string>
+    <string name="hide_subtitle">Спрятать подзаголовок</string>
+    <plurals name="subtitle_plural">
+        <item quantity="one">%1$d преступление</item>
+        <item quantity="other">%1$d преступлений</item>
+    </plurals>
 </resources>
