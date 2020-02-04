@@ -55,13 +55,20 @@ public class CrimeFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         //UUID crimeID = (UUID)getActivity().getIntent().getSerializableExtra(CrimeActivity.EXTRA_CRIME_ID);
-        //UUID crimeID = (UUID) getArguments().getSerializable(ARG_CRIME_ID);
-        //mCrime = CrimeLab.get(getActivity()).getCrime(crimeID);
-        int crimePosition =  getArguments().getInt(ARG_CRIME_POSITION);
-        mCrime = CrimeLab.get(getActivity()).getCrime(crimePosition);
+        UUID crimeID = (UUID) getArguments().getSerializable(ARG_CRIME_ID);
+        mCrime = CrimeLab.get(getActivity()).getCrime(crimeID);
+//        int crimePosition =  getArguments().getInt(ARG_CRIME_POSITION);
+//        mCrime = CrimeLab.get(getActivity()).getCrime(crimePosition);
 
         setHasOptionsMenu(true);
         mIsTabletLayout = getResources().getBoolean(R.bool.large_layout);
+    }
+
+    @Override
+    public void onPause(){
+        super.onPause();
+
+        CrimeLab.get(getActivity()).updateCrime(mCrime);
     }
 
     @Override
@@ -180,9 +187,9 @@ public class CrimeFragment extends Fragment {
         switch (item.getItemId()) {
             case R.id.delete_crime:
                 CrimeLab.get(getActivity()).deleteCrime(mCrime);
-                //getActivity().finish();
-                Intent intent = new Intent(getActivity(), CrimeListActivity.class);
-                startActivity(intent);
+                getActivity().finish();
+//                Intent intent = new Intent(getActivity(), CrimeListActivity.class);
+//                startActivity(intent);
                 return true;
             default:
                 return super.onOptionsItemSelected(item);

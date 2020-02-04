@@ -158,6 +158,10 @@ public class CrimeListFragment extends Fragment {
             return crime.isRequiresPolice() ? 1 : 0;
         }
 
+        public void setCrimes(List<Crime> crimes){
+            mCrimes = crimes;
+        }
+
     }
 
     @Override
@@ -231,6 +235,8 @@ public class CrimeListFragment extends Fragment {
         }else{
             //mAdapter.notifyDataSetChanged();
             //mAdapter.notifyItemChanged(position);
+            mAdapter.setCrimes(crimes);
+            mAdapter.notifyDataSetChanged();
         }
         updateSubtitle();
     }
