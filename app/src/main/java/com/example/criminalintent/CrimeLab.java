@@ -117,6 +117,9 @@ public class CrimeLab {
         values.put(CrimeTable.Cols.TITLE, crime.getTitle());
         values.put(CrimeTable.Cols.DATE, crime.getDate().getTime());
         values.put(CrimeTable.Cols.SOLVED, crime.isSolved() ? 1 : 0);
+        values.put(CrimeTable.Cols.REQUIRESPOLICE, crime.isRequiresPolice() ? 1 : 0);
+        values.put(CrimeTable.Cols.SUSPECT, crime.getSuspect());
+        values.put(CrimeTable.Cols.SUSPECTID, crime.getSuspectId());
         return values;
     }
 }
