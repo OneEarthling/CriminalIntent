@@ -9,26 +9,6 @@ public class Crime {
     private Date mDate;
     private boolean mSolved;
     private boolean mRequiresPolice;
-    private String mSuspect;
-    private String mSuspectId;
-
-    public String getSuspectId() {
-        return mSuspectId;
-    }
-
-    public void setSuspectId(String suspectId) {
-        mSuspectId = suspectId;
-    }
-
-    public String getSuspect() {
-        return mSuspect;
-    }
-
-    public void setSuspect(String suspect) {
-        mSuspect = suspect;
-    }
-
-
 
     public Crime(){
         this(UUID.randomUUID());
