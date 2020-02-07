@@ -7,7 +7,7 @@ import androidx.fragment.app.FragmentManager;
 
 import java.util.UUID;
 
-public class CrimeListActivity extends SingleFragmentActivity implements  CrimeListFragment.Callbacks, CrimeFragment.Callbacks, CrimeListFragment.OnDeleteCrimeListener{
+public class CrimeListActivity extends SingleFragmentActivity implements  CrimeListFragment.Callbacks, CrimeFragment.Callbacks, CrimeListFragment.OnDeleteCrime{
     @Override
     protected Fragment createFragment() {
         return new CrimeListFragment();
@@ -37,10 +37,10 @@ public class CrimeListActivity extends SingleFragmentActivity implements  CrimeL
         listFragment.updateUI();
     }
 
-    public void onCrimeIdSelected(UUID crimeId) {
+    public void onCrimeSelectedtoDelete(Crime crime) {
         CrimeFragment crimeFragment = (CrimeFragment) getSupportFragmentManager().findFragmentById(R.id.detail_fragment_container);
         CrimeListFragment listFragment = (CrimeListFragment)getSupportFragmentManager().findFragmentById(R.id.fragment_container);
-        listFragment.deleteCrime(crimeId);
+        listFragment.deleteCrime(crime);
         listFragment.updateUI();
         if(crimeFragment!=null){
             listFragment.getActivity().getSupportFragmentManager().beginTransaction().remove(crimeFragment).commit();

@@ -38,10 +38,10 @@ public class CrimeListFragment extends Fragment {
     public static final int POLICE_TYPE = 1;
     private static final int REQUEST_CRIME_POSITION = 2;
     private static final String SAVED_SUBTITLE_VISIBLE = "subtitle";
-    private OnDeleteCrimeListener mDeleteCallBack;
+    private OnDeleteCrime mDeleteCallBack;
 
-    public interface OnDeleteCrimeListener {
-        void onCrimeIdSelected(UUID crimeId);
+    public interface OnDeleteCrime {
+        void onCrimeSelectedtoDelete(Crime crime);
     }
 
     public interface Callbacks{
@@ -52,7 +52,7 @@ public class CrimeListFragment extends Fragment {
     public void onAttach(Context context){
         super.onAttach(context);
         mCallbacks = (Callbacks) context;
-        mDeleteCallBack = (OnDeleteCrimeListener) context;
+        mDeleteCallBack = (OnDeleteCrime) context;
     }
 
     @Override
@@ -291,7 +291,7 @@ public class CrimeListFragment extends Fragment {
                     public void onSwiped(RecyclerView.ViewHolder viewHolder, int swipeDir) {
                         int position = viewHolder.getAdapterPosition();
                         Crime crime = mAdapter.mCrimes.get(position);
-                        mDeleteCallBack.onCrimeIdSelected(crime.getId());
+                        mDeleteCallBack.onCrimeSelectedtoDelete(crime);
                     }
                 };
 
@@ -299,8 +299,8 @@ public class CrimeListFragment extends Fragment {
         itemTouchHelper.attachToRecyclerView(mCrimeRecyclerView);
     }
 
-    public void deleteCrime(UUID crimeId) {
-        Crime crime = CrimeLab.get(getActivity()).getCrime(crimeId);
+    public void deleteCrime(Crime crime) {
+//        Crime crime = CrimeLab.get(getActivity()).getCrime(crimeId);
         CrimeLab.get(getActivity()).deleteCrime(crime);
     }
 }
