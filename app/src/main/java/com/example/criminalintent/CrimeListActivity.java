@@ -6,8 +6,8 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
 import java.util.UUID;
-
-public class CrimeListActivity extends SingleFragmentActivity implements  CrimeListFragment.Callbacks, CrimeFragment.Callbacks, CrimeListFragment.OnDeleteCrime{
+//, CrimeListFragment.OnDeleteCrime
+public class CrimeListActivity extends SingleFragmentActivity implements  CrimeListFragment.Callbacks, CrimeFragment.Callbacks{
     @Override
     protected Fragment createFragment() {
         return new CrimeListFragment();
@@ -37,13 +37,13 @@ public class CrimeListActivity extends SingleFragmentActivity implements  CrimeL
         listFragment.updateUI();
     }
 
-    public void onCrimeSelectedtoDelete(Crime crime) {
-        CrimeFragment crimeFragment = (CrimeFragment) getSupportFragmentManager().findFragmentById(R.id.detail_fragment_container);
-        CrimeListFragment listFragment = (CrimeListFragment)getSupportFragmentManager().findFragmentById(R.id.fragment_container);
-        listFragment.deleteCrime(crime);
-        listFragment.updateUI();
-        if(crimeFragment!=null){
-            listFragment.getActivity().getSupportFragmentManager().beginTransaction().remove(crimeFragment).commit();
-        }
-    }
+//    public void onCrimeSelectedtoDelete(Crime crime) {
+//        CrimeFragment crimeFragment = (CrimeFragment) getSupportFragmentManager().findFragmentById(R.id.detail_fragment_container);
+//        CrimeListFragment listFragment = (CrimeListFragment)getSupportFragmentManager().findFragmentById(R.id.fragment_container);
+//        listFragment.deleteCrime(crime);
+//        listFragment.updateUI();
+//        if(crimeFragment!=null){
+//            listFragment.getActivity().getSupportFragmentManager().beginTransaction().remove(crimeFragment).commit();
+//        }
+//    }
 }

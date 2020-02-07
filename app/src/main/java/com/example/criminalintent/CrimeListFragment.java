@@ -40,6 +40,10 @@ public class CrimeListFragment extends Fragment {
     private static final String SAVED_SUBTITLE_VISIBLE = "subtitle";
     private OnDeleteCrime mDeleteCallBack;
 
+    public interface ItemTouchHelperAdapter {
+        void onItemDismiss(int position);
+    }
+
     public interface OnDeleteCrime {
         void onCrimeSelectedtoDelete(Crime crime);
     }
@@ -52,14 +56,14 @@ public class CrimeListFragment extends Fragment {
     public void onAttach(Context context){
         super.onAttach(context);
         mCallbacks = (Callbacks) context;
-        mDeleteCallBack = (OnDeleteCrime) context;
+//        mDeleteCallBack = (OnDeleteCrime) context;
     }
 
     @Override
     public void onDetach(){
         super.onDetach();
         mCallbacks = null;
-        mDeleteCallBack = null;
+  //      mDeleteCallBack = null;
     }
 
     @Override
@@ -95,7 +99,7 @@ public class CrimeListFragment extends Fragment {
             });
         }
         updateUI();
-        setCrimeRecyclerViewItemTouchListener();
+        //setCrimeRecyclerViewItemTouchListener();
         return view;
     }
 
@@ -148,7 +152,7 @@ public class CrimeListFragment extends Fragment {
 
     }
 
-    private class CrimeAdapter extends RecyclerView.Adapter<CrimeHolder>{
+    private class CrimeAdapter extends RecyclerView.Adapter<CrimeHolder> implements ItemTouchHelperAdapter{
         private List<Crime> mCrimes;
 
         public CrimeAdapter(List<Crime> crimes){
@@ -191,14 +195,41 @@ public class CrimeListFragment extends Fragment {
             mCrimes = crimes;
         }
 
+        @Override
+        public void onItemDismiss(int position) {
+            mCrimes.remove(position);
+            notifyItemRemoved(position);
+        }
     }
 
     @Override
     public void onResume(){
         super.onResume();
         updateUI();
+        ItemTouchHelper itemTouchHelper = new ItemTouchHelper(touchCallback);
+        itemTouchHelper.attachToRecyclerView(mCrimeRecyclerView);
     }
+    ItemTouchHelper.Callback touchCallback = new ItemTouchHelper.Callback() {
+        @Override
+        public int getMovementFlags(RecyclerView recyclerView,
+                                    RecyclerView.ViewHolder viewHolder) {
+            int swipeFlags = ItemTouchHelper.START | ItemTouchHelper.END;
+            return makeMovementFlags(0, swipeFlags);
+        }
 
+        @Override
+        public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
+            return false;
+        }
+
+        @Override
+        public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
+            Crime crime = mAdapter.mCrimes.get(viewHolder.getAdapterPosition());
+            CrimeLab.get(getActivity()).deleteCrime(crime);
+            updateUI();
+        }
+
+    };
     @Override
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
@@ -280,27 +311,27 @@ public class CrimeListFragment extends Fragment {
         //}
     }
 
-    public void setCrimeRecyclerViewItemTouchListener() {
-        ItemTouchHelper.SimpleCallback itemTouchCallback =  new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.RIGHT) {
-                    @Override
-                    public boolean onMove(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder,RecyclerView.ViewHolder target) {
-                        return false;
-                    }
-
-                    @Override
-                    public void onSwiped(RecyclerView.ViewHolder viewHolder, int swipeDir) {
-                        int position = viewHolder.getAdapterPosition();
-                        Crime crime = mAdapter.mCrimes.get(position);
-                        mDeleteCallBack.onCrimeSelectedtoDelete(crime);
-                    }
-                };
-
-        ItemTouchHelper itemTouchHelper = new ItemTouchHelper(itemTouchCallback);
-        itemTouchHelper.attachToRecyclerView(mCrimeRecyclerView);
-    }
-
-    public void deleteCrime(Crime crime) {
-//        Crime crime = CrimeLab.get(getActivity()).getCrime(crimeId);
-        CrimeLab.get(getActivity()).deleteCrime(crime);
-    }
+//    public void setCrimeRecyclerViewItemTouchListener() {
+//        ItemTouchHelper.SimpleCallback itemTouchCallback =  new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.RIGHT) {
+//                    @Override
+//                    public boolean onMove(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder,RecyclerView.ViewHolder target) {
+//                        return false;
+//                    }
+//
+//                    @Override
+//                    public void onSwiped(RecyclerView.ViewHolder viewHolder, int swipeDir) {
+//                        int position = viewHolder.getAdapterPosition();
+//                        Crime crime = mAdapter.mCrimes.get(position);
+//                        mDeleteCallBack.onCrimeSelectedtoDelete(crime);
+//                    }
+//                };
+//
+//        ItemTouchHelper itemTouchHelper = new ItemTouchHelper(itemTouchCallback);
+//        itemTouchHelper.attachToRecyclerView(mCrimeRecyclerView);
+//    }
+//
+//    public void deleteCrime(Crime crime) {
+////        Crime crime = CrimeLab.get(getActivity()).getCrime(crimeId);
+//        CrimeLab.get(getActivity()).deleteCrime(crime);
+//    }
 }
