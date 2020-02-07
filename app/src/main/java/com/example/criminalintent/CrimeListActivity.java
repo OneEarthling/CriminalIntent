@@ -42,8 +42,9 @@ public class CrimeListActivity extends SingleFragmentActivity implements  CrimeL
         CrimeListFragment listFragment = (CrimeListFragment)getSupportFragmentManager().findFragmentById(R.id.fragment_container);
         listFragment.deleteCrime(crime);
         listFragment.updateUI();
-        if(crimeFragment!=null){
-            listFragment.getActivity().getSupportFragmentManager().beginTransaction().remove(crimeFragment).commit();
-        }
+        // детальное пропадёт при любом удалении из списка
+//        if(crimeFragment!=null){
+//            listFragment.getActivity().getSupportFragmentManager().beginTransaction().remove(crimeFragment).commit();
+//        }
     }
 }

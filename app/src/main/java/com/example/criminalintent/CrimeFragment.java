@@ -8,6 +8,7 @@ import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.database.Cursor;
 import android.graphics.Bitmap;
+import android.icu.text.SimpleDateFormat;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.ContactsContract;
@@ -41,6 +42,7 @@ import java.io.File;
 import java.sql.Time;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 import java.util.UUID;
 
 import static android.widget.CompoundButton.*;
@@ -331,8 +333,16 @@ public class CrimeFragment extends Fragment {
 //        DateFormat dateFormat = new SimpleDateFormat("EEE MMM dd yyyy");
 //        mDateButton.setText(dateFormat.format(mCrime.getDate()));
 //        mDateButton.setText(mCrime.getDate().toString());
-        String dateFormat = "EEE MMM dd yyyy";
-        mDateButton.setText(DateFormat.format(dateFormat, mCrime.getDate()).toString());
+//        SimpleDateFormat sdf = new SimpleDateFormat("EEEE");
+//        String dayOfTheWeek = sdf.format(mCrime.getDate());
+//        mDateTextView.setText(dayOfTheWeek + ", " +DateFormat.getDateInstance().format(mCrime.getDate()));
+        String dateFormat = getResources().getString(R.string.formatted_date);
+        String dateString = new SimpleDateFormat(dateFormat, Locale.getDefault())
+                .format(mCrime.getDate());
+        mDateButton.setText(dateString);
+        // второй вариант - показывает только числа
+//        String text = DateFormat.getDateFormat(getActivity()).format(mCrime.getDate());
+//        mDateButton.setText(DateFormat.format(dateFormat, mCrime.getDate()).toString());
     }
 
     private void updateTime(){
