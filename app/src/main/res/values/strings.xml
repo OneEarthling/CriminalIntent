@@ -1,32 +1,37 @@
 <resources>
     <string name="app_name">CriminalIntent</string>
-    <string name="crime_title_hint">Введите заголовок преступления</string>
-    <string name="crime_title_label">Заголовок</string>
-    <string name="crime_details_label">Детали</string>
-    <string name="crime_solved_label">Решено</string>
-    <string name="date_picker_title">Дата преступления:</string>
-    <string name="time_picker_title">Время преступления:</string>
+    <string name="crime_title_hint">Enter a title for the crime.</string>
+    <string name="crime_title_label">Title</string>
+    <string name="crime_details_label">Details</string>
+    <string name="crime_solved_label">Solved</string>
+    <string name="date_picker_title">Date of crime:</string>
+    <string name="new_crime">New Crime</string>
+    <string name="show_subtitle">Show Subtitle</string>
+    <string name="hide_subtitle">Hide Subtitle</string>
+    <string name="subtitle_format">%1$d crimes</string>
+    <string name="crime_suspect_text">Choose Suspect</string>
+    <string name="crime_report_text">Send Crime Report</string>
+    <string name="crime_report">%1$s!
+    The crime was discovered on %2$s. %3$s, and %4$s
+    </string>
+    <plurals name="subtitle_plural">
+        <item quantity="one">%1$d crime</item>
+        <item quantity="other">%1$d crimes</item>
+    </plurals>
+    <string name="crime_report_solved">The case is solved</string>
+    <string name="crime_report_unsolved">The case is not solved</string>
+    <string name="crime_report_no_suspect">there is no suspect.</string>
+    <string name="crime_report_suspect">the suspect is %s.</string>
+    <string name="crime_report_subject">CriminalIntent Crime Report</string>
+    <string name="send_report">Send crime report via</string>
+    <string name="crime_suspect_call">Call suspect</string>
+    <string name="delete_crime">Delete crime</string>
+    <string name="no_crimes">Crime list is empty</string>
+    <string name="time_picker_title">Time of crime:</string>
     <string name="to_first_page"><![CDATA[<<]]></string>
     <string name="to_last_page"><![CDATA[>>]]></string>
-    <string name="no_crimes">Список преступлений пуст</string>
-    <string name="new_crime">Новое преступление</string>
-    <string name="delete_crime">Удалить преступление</string>
-    <string name="show_subtitle">Показать подзаголовок</string>
-    <string name="hide_subtitle">Спрятать подзаголовок</string>
-    <plurals name="subtitle_plural">
-        <item quantity="one">%1$d преступление</item>
-        <item quantity="other">%1$d преступлений</item>
-    </plurals>
-    <string name="crime_suspect_text">Выберите подозреваемого</string>
-    <string name="crime_suspect_call">Позвонить подозреваемому</string>
-    <string name="crime_report_text">Отправить отчёт о преступлении</string>
-    <string name="crime_report">%1$s!
-        Преступление было обнаружено на %2$s. %3$s, и %4$s
-    </string>
-    <string name="crime_report_solved">Дело решено</string>
-    <string name="crime_report_unsolved">Дело нерешено</string>
-    <string name="crime_report_no_suspect">подозреваемых нет.</string>
-    <string name="crime_report_suspect">подозреваемый - %s.</string>
-    <string name="crime_report_subject">CriminalIntent Отчёт о преступлении</string>
-    <string name="send_report">Отправить отчёт о преступлении через</string>
+
+    <string name="crime_photo_button_description">Take photo of crime scene</string>
+    <string name="crime_photo_no_image_description">Crime scene photo (not set)    </string>
+    <string name="crime_photo_image_description">Crime scene photo (set)</string>
 </resources>
