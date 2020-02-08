@@ -63,6 +63,7 @@ public class CrimeFragment extends Fragment {
     private Button mDateButton;
     private Button mTimeButton;
     private CheckBox mSolvedCheckBox;
+    private CheckBox mPoliceCheckBox;
     private boolean mIsTabletLayout;
     private Button mReportButton;
     private Button mSuspectButton;
@@ -192,6 +193,17 @@ public class CrimeFragment extends Fragment {
                 updateCrime();
             }
         });
+
+        mPoliceCheckBox = v.findViewById(R.id.crime_requires_police);
+        mPoliceCheckBox.setChecked(mCrime.isRequiresPolice());
+        mPoliceCheckBox.setOnCheckedChangeListener(new OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                mCrime.setRequiresPolice(isChecked);
+                updateCrime();
+            }
+        });
+
         mReportButton = v.findViewById(R.id.crime_report);
         mReportButton.setOnClickListener(new OnClickListener() {
             @Override

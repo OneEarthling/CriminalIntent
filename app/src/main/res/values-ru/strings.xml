@@ -5,6 +5,7 @@
     <string name="crime_title_label">Заголовок</string>
     <string name="crime_details_label">Детали</string>
     <string name="crime_solved_label">Решено</string>
+    <string name="crime_requires_police_label">Нужна полиция</string>
     <string name="date_picker_title">Дата преступления:</string>
     <string name="time_picker_title">Время преступления:</string>
     <string name="no_crimes">Список преступлений пуст</string>
@@ -28,6 +29,7 @@
     <string name="crime_report_suspect">подозреваемый - %s.</string>
     <string name="crime_report_subject">CriminalIntent Отчёт о преступлении</string>
     <string name="send_report">Отправить отчёт о преступлении через</string>
-
+    <string name="call_police">Вызвать полицию!</string>
+    <string name="police_called">  полиция вызвана!</string>
 
 </resources>

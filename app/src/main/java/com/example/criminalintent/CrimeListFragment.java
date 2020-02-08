@@ -117,7 +117,7 @@ public class CrimeListFragment extends Fragment {
                 mRequiresPolice.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Toast.makeText(getActivity(), mCrime.getTitle() + " полиция вызвана!", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getActivity(), mCrime.getTitle() + " " + getString(R.string.police_called), Toast.LENGTH_SHORT).show();
                     }
                 });
             }
@@ -132,6 +132,11 @@ public class CrimeListFragment extends Fragment {
             String dayOfTheWeek = sdf.format(mCrime.getDate());
             mDateTextView.setText(dayOfTheWeek + ", " +DateFormat.getDateInstance().format(mCrime.getDate()));
             mSolvedImageView.setVisibility(crime.isSolved()?View.VISIBLE : View.GONE);
+            if (crime.isSolved()){
+                mSolvedImageView.setContentDescription(getString(R.string.crime_solved_image_description));
+            }else{
+                mSolvedImageView.setContentDescription(getString(R.string.crime_not_solved_image_description));
+            }
         }
 
         @Override
